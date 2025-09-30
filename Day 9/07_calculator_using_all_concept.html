@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Smart Calculator</title>
+
+
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f2f2f2;
+      text-align: center;
+      padding: 50px;
+    }
+
+    #formContainer {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      display: inline-block;
+    }
+
+    input[type="number"] {
+      padding: 10px;
+      width: 200px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      padding: 10px 20px;
+      margin: 5px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    #result {
+      font-size: 24px;
+      color: #333;
+      margin-top: 20px;
+    }
+  </style>
+
+
+  <script src="jquery-3.7.1.min.js"></script>
+</head>
+
+<body>
+  <div id="formContainer">
+    <label for="fnumber">Enter First Number:</label><br>
+    <input type="number" id="fnumber" placeholder="First number"><br><br>
+
+    <label for="snumber">Enter Second Number:</label><br>
+    <input type="number" id="snumber" placeholder="Second number"><br><br>
+
+    <button onclick="calculate('addition')">Addition</button>
+    <button onclick="calculate('subtraction')">Subtraction</button>
+    <button onclick="calculate('multiplication')">Multiplication</button>
+    <button onclick="calculate('division')">Division</button>
+
+    <p id="result"></p>
+  </div>
+
+  <script>
+    function display(result) {
+      $("#result").html(result); 
+    }
+
+    function addition(fnumber, snumber, callback) {
+      let result = fnumber + snumber;
+      callback(result);
+    }
+
+    function subtraction(fnumber, snumber, callback) {
+      let result = fnumber - snumber;
+      callback(result);
+    }
+
+    function multiplication(fnumber, snumber, callback) {
+      let result = fnumber * snumber;
+      callback(result);
+    }
+
+    function division(fnumber, snumber, callback) {
+      if (snumber === 0) {
+        callback("Cannot divide by zero.");
+      } else {
+        let result = fnumber / snumber;
+        callback(result);
+      }
+    }
+
+    function calculate(operation) {
+      let fnumber = parseFloat($("#fnumber").val());
+      let snumber = parseFloat($("#snumber").val());
+
+      if (isNaN(fnumber) || isNaN(snumber)) {
+        display(" Please enter valid numbers.");
+        return;
+      }
+
+      switch (operation) {
+        case "addition":
+          addition(fnumber, snumber, display);
+          break;
+        case "subtraction":
+          subtraction(fnumber, snumber, display);
+          break;
+        case "multiplication":
+          multiplication(fnumber, snumber, display);
+          break;
+        case "division":
+          division(fnumber, snumber, display);
+          break;
+        default:
+          display(" Unknown operation.");
+      }
+    }
+  </script>
+</body>
+</html>
